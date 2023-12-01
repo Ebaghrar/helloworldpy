@@ -1,18 +1,11 @@
-# Utilisez l'image de base Python
-FROM python:3.8
+# app.py
+from flask import Flask
 
-# Définissez le répertoire de travail
-WORKDIR /app
+app = Flask(__name__)
 
-# Copiez les fichiers nécessaires dans le conteneur
-COPY app.py .
-COPY requirements.txt .
+@app.route('/')
+def hello():
+    return 'Hello, OpenShift  &  RHACS!'
 
-# Installez les dépendances
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Exposez le port sur lequel l'application écoute
-EXPOSE 8080
-
-# Commande pour exécuter l'application
-CMD ["python", "app.py"]
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
